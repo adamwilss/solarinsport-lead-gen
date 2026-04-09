@@ -1,0 +1,300 @@
+# CLAUDE.md
+
+## Project: Solar & Sport Stadium Outreach Engine
+
+## Purpose
+
+Build a system for Solar & Sport that finds relevant sports stadiums, enriches contact data, scores opportunities, and automates outreach in a controlled, reviewable way.
+
+The system should help identify venues that are likely to be good fits for solar related offers, sponsorship conversations, partnership outreach, or commercial energy improvement discussions.
+
+## Core Outcome
+
+The product should:
+
+1. Find sports stadiums and venue operators in target markets.
+2. Gather structured business and contact information.
+3. Score each lead based on fit and likely commercial value.
+4. Generate personalized outreach.
+5. Send outreach through approved channels.
+6. Track replies, status, and next actions.
+7. Keep a human in the loop for approval where needed.
+
+## Ideal User
+
+The primary user is a business development or partnerships team member at Solar & Sport who wants a repeatable way to source and contact stadium opportunities.
+
+## Main Workflow
+
+### 1. Stadium Discovery
+
+The system should find stadiums using multiple sources such as:
+
+1. Official league and club directories
+2. Public venue listings
+3. Maps and business directories
+4. Club and stadium websites
+5. Events and hospitality pages
+6. Public company or local authority pages where relevant
+
+For each stadium, capture:
+
+1. Stadium name
+2. Club or operator name
+3. Location
+4. Capacity
+5. Sport type
+6. League or competition
+7. Website
+8. Ownership or operating entity if available
+9. Hospitality or commercial page links
+10. Sustainability or facilities page links
+
+### 2. Contact Enrichment
+
+For each venue, find and store:
+
+1. General contact email
+2. Partnerships contact
+3. Commercial director or head of partnerships
+4. Facilities manager or operations lead
+5. Sustainability lead if available
+6. Phone number
+7. Contact page URL
+8. LinkedIn profile or company page when available
+
+The enrichment layer should prioritize decision makers connected to:
+
+1. Commercial partnerships
+2. Operations
+3. Energy or sustainability
+4. Estates and facilities
+
+### 3. Qualification and Scoring
+
+Each lead should receive a score based on weighted criteria such as:
+
+1. Venue size and capacity
+2. Professional or semi professional status
+3. Evidence of commercial partnerships
+4. Evidence of sustainability or energy initiatives
+5. Multi use venue status
+6. Geographic fit
+7. Contact quality
+8. Existing sponsor ecosystem
+
+Suggested scoring bands:
+
+1. High priority
+2. Medium priority
+3. Low priority
+
+The scoring logic should be transparent and editable.
+
+### 4. Outreach Generation
+
+The system should create personalized outreach using lead data.
+
+Every message should reference relevant facts such as:
+
+1. Club name
+2. Stadium name
+3. Recent developments
+4. Venue scale
+5. Sustainability angle
+6. Commercial relevance
+
+Outreach outputs should include:
+
+1. Cold email first touch
+2. Follow up email one
+3. Follow up email two
+4. LinkedIn message draft
+5. Short call opener or voicemail script
+
+Tone should be:
+
+1. Professional
+2. Concise
+3. Commercially credible
+4. Not spammy
+5. Personalized with clear value
+
+## Outreach Rules
+
+The system must avoid generic mass blasting.
+
+Rules:
+
+1. Personalization must be based on actual lead data.
+2. Every sequence must be editable before send.
+3. Sending volume must be rate limited.
+4. Contacts must be deduplicated.
+5. Opt out handling must be respected.
+6. Outreach history must be tracked.
+7. Follow ups should stop when a reply is received.
+8. High value leads should be flagged for manual review.
+
+## CRM Structure
+
+Each record should include:
+
+1. Lead ID
+2. Stadium name
+3. Club or operator
+4. Sport
+5. League
+6. Country
+7. City
+8. Capacity
+9. Website
+10. Contact name
+11. Contact title
+12. Contact email
+13. Contact source
+14. Lead score
+15. Outreach status
+16. Last contact date
+17. Next action
+18. Notes
+19. Tags
+20. Owner
+
+## Pipeline Stages
+
+Use a simple pipeline:
+
+1. Discovered
+2. Enriched
+3. Qualified
+4. Ready for outreach
+5. Contacted
+6. Replied
+7. Meeting booked
+8. Opportunity active
+9. Closed won
+10. Closed lost
+
+## Automation Requirements
+
+The system should automate:
+
+1. Stadium discovery on a schedule
+2. Contact enrichment after discovery
+3. Lead scoring after enrichment
+4. Draft generation for outreach
+5. Sequence scheduling
+6. Reply detection
+7. Status updates in the CRM
+8. Alerts for high value replies
+
+The system should not fully automate final sending without a clear approval mode unless explicitly enabled.
+
+## Human Review Layer
+
+Human approval should be required for:
+
+1. First outreach to top tier leads
+2. Any message with incomplete personalization
+3. Any lead where contact confidence is low
+4. Any message sent from a founder or senior executive identity
+
+## Search Filters
+
+The user should be able to filter by:
+
+1. Country
+2. Region
+3. Sport
+4. League
+5. Capacity band
+6. Priority score
+7. Contact completeness
+8. Sustainability relevance
+9. Outreach status
+
+## Useful Derived Signals
+
+The system should try to infer:
+
+1. Whether the venue likely has significant daytime energy usage
+2. Whether the venue hosts multiple event types
+3. Whether the venue promotes green initiatives
+4. Whether the venue appears commercially active with sponsors and partners
+5. Whether the venue has premium hospitality or conferencing facilities
+
+## Admin Controls
+
+The admin should be able to:
+
+1. Change scoring weights
+2. Edit outreach templates
+3. Approve or reject drafts
+4. Pause sequences
+5. Exclude certain clubs or regions
+6. Export lead lists
+7. Reassign ownership
+
+## Suggested Integrations
+
+Potential integrations:
+
+1. Maps or places data provider
+2. Web scraping layer
+3. Email enrichment provider
+4. CRM such as HubSpot or Pipedrive
+5. Email sending platform
+6. LinkedIn workflow support where compliant
+7. Spreadsheet export
+
+## Success Metrics
+
+Track:
+
+1. Number of qualified stadium leads found
+2. Contact coverage rate
+3. Outreach send volume
+4. Open rate
+5. Reply rate
+6. Positive reply rate
+7. Meetings booked
+8. Opportunities created
+9. Time saved versus manual prospecting
+
+## Guardrails
+
+The product must:
+
+1. Keep source provenance where possible
+2. Avoid inventing personal details
+3. Avoid sending duplicate outreach
+4. Respect suppression lists
+5. Make manual overrides easy
+6. Log all automated actions
+
+## V1 Scope
+
+Version one should focus on:
+
+1. UK stadium discovery
+2. Contact enrichment for commercial and facilities roles
+3. Basic lead scoring
+4. Email draft generation
+5. Manual approval before send
+6. CRM style tracking dashboard
+
+## Future Scope
+
+Later versions could include:
+
+1. More countries
+2. Better enrichment
+3. Sponsorship intelligence
+4. Energy usage estimation models
+5. Automated meeting booking flows
+6. Multi channel outreach
+7. Proposal generation after reply
+
+## Product Summary
+
+Solar & Sport should function as a stadium prospecting and outreach engine built for commercial energy and partnership conversations. It should combine structured venue discovery, lead qualification, and careful outreach automation so the team can find the right stadiums and contact them efficiently without turning the process into low quality spam.
