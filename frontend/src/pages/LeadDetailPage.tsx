@@ -49,7 +49,6 @@ const CONFIDENCE_COLORS: Record<string, string> = {
 export default function LeadDetailPage() {
   const { id } = useParams();
   const qc = useQueryClient();
-  const [isEditing, setIsEditing] = useState(false);
   const [notes, setNotes] = useState("");
 
   const { data: lead, isLoading } = useQuery({
@@ -70,7 +69,6 @@ export default function LeadDetailPage() {
       qc.invalidateQueries({ queryKey: ["lead", id] });
       qc.invalidateQueries({ queryKey: ["leads"] });
       qc.invalidateQueries({ queryKey: ["dashboard"] });
-      setIsEditing(false);
     },
   });
 

@@ -8,6 +8,8 @@ export interface Stadium {
   sport: string | null;
   league: string | null;
   website: string | null;
+  hospitality_url: string | null;
+  sustainability_url: string | null;
   created_at: string;
 }
 
@@ -18,6 +20,7 @@ export interface Contact {
   title: string | null;
   email: string | null;
   phone: string | null;
+  linkedin_url: string | null;
   source: string | null;
   confidence: string;
   created_at: string;
