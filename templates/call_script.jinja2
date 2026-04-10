@@ -1,0 +1,10 @@
+CALL OPENER — {{ stadium_name }}
+
+"Hi {{ contact_name | default("there", true) }}, my name is {{ sender_name | default("[Your Name]") }} from Solar & Sport. I'm calling because we work with sports venues across the UK on solar energy solutions, and I believe there's a strong opportunity at {{ stadium_name }}.
+
+{% if sustainability_angle %}I noticed {{ club_name or "your club" }} has been active on the sustainability front, and I think we could build on that.{% endif %}
+
+We're helping venues like yours reduce energy costs and generate new revenue through solar installations. Would you have a few minutes to discuss this, or would it be better to schedule a call later this week?"
+
+IF VOICEMAIL:
+"Hi {{ contact_name | default("there", true) }}, this is {{ sender_name | default("[Your Name]") }} from Solar & Sport. I'm reaching out because we help sports venues like {{ stadium_name }} save on energy through solar solutions. I'll follow up by email, but feel free to reach me at [phone number]. Thanks."
