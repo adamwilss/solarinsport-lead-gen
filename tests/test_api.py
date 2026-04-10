@@ -111,3 +111,14 @@ def test_reject_draft(test_client, seeded_with_drafts):
     )
     assert resp.status_code == 200
     assert resp.json()["approval_status"] == "rejected"
+
+
+# --- Task 14: Dashboard API ---
+
+def test_dashboard_stats(test_client, seeded_db):
+    resp = test_client.get("/api/dashboard/")
+    assert resp.status_code == 200
+    data = resp.json()
+    assert data["total_leads"] == 1
+    assert isinstance(data["pipeline"], list)
+    assert isinstance(data["leads_by_priority"], dict)
