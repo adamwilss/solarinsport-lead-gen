@@ -38,3 +38,47 @@ def test_extract_contact_links_excludes_irrelevant():
 def test_find_contact_page_url():
     url = find_contact_page_url(SAMPLE_PAGE, base_url="https://exampleclub.com")
     assert url == "https://exampleclub.com/contact"
+
+
+from solar_sport.enrichment.pipeline import enrich_lead_from_data
+from solar_sport.models import Stadium, Lead, Contact, PipelineStage
+
+
+def test_enrich_lead_creates_contacts(db_session):
+    stadium = Stadium(name="Test Stadium", club_name="Test FC", website="https://testfc.com")
+    db_session.add(stadium)
+    db_session.flush()
+    lead = Lead(stadium_id=stadium.id, stage=PipelineStage.DISCOVERED.value)
+    db_session.add(lead)
+    db_session.commit()
+
+    enrich_lead_from_data(db_session, lead.id, emails=["info@testfc.com", "partnerships@testfc.com"], contact_page_url="https://testfc.com/contact")
+
+    contacts = db_session.query(Contact).filter(Contact.lead_id == lead.id).all()
+    assert len(contacts) == 2
+
+
+def test_enrich_lead_updates_stage(db_session):
+    stadium = Stadium(name="Test Stadium 2", club_name="Test FC 2")
+    db_session.add(stadium)
+    db_session.flush()
+    lead = Lead(stadium_id=stadium.id, stage=PipelineStage.DISCOVERED.value)
+    db_session.add(lead)
+    db_session.commit()
+
+    enrich_lead_from_data(db_session, lead.id, emails=["info@testfc2.com"], contact_page_url=None)
+    db_session.refresh(lead)
+    assert lead.stage == PipelineStage.ENRICHED.value
+
+
+def test_enrich_lead_no_duplicate_emails(db_session):
+    stadium = Stadium(name="Test Stadium 3", club_name="Test FC 3")
+    db_session.add(stadium)
+    db_session.flush()
+    lead = Lead(stadium_id=stadium.id, stage=PipelineStage.DISCOVERED.value)
+    db_session.add(lead)
+    db_session.commit()
+
+    enrich_lead_from_data(db_session, lead.id, emails=["info@testfc3.com"], contact_page_url=None)
+    enrich_lead_from_data(db_session, lead.id, emails=["info@testfc3.com"], contact_page_url=None)
+    assert db_session.query(Contact).filter(Contact.lead_id == lead.id).count() == 1
