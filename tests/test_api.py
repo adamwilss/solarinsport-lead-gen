@@ -63,3 +63,51 @@ def test_filter_leads_by_sport(test_client, seeded_db):
 
     resp = test_client.get("/api/leads/", params={"sport": "Rugby"})
     assert len(resp.json()) == 0
+
+
+# --- Task 13: Outreach API ---
+
+from solar_sport.models import OutreachDraft
+
+
+@pytest.fixture
+def seeded_with_drafts(db_session, seeded_db):
+    draft = OutreachDraft(
+        lead_id=seeded_db["lead_id"],
+        outreach_type="cold_email",
+        subject="Solar opportunity",
+        body="Dear team...",
+        recipient_email="info@wembley.com",
+    )
+    db_session.add(draft)
+    db_session.commit()
+    return {**seeded_db, "draft_id": draft.id}
+
+
+def test_list_drafts(test_client, seeded_with_drafts):
+    resp = test_client.get("/api/outreach/")
+    assert resp.status_code == 200
+    assert len(resp.json()) == 1
+
+
+def test_list_drafts_filter_pending(test_client, seeded_with_drafts):
+    resp = test_client.get("/api/outreach/", params={"status": "pending"})
+    assert len(resp.json()) == 1
+
+
+def test_approve_draft(test_client, seeded_with_drafts):
+    resp = test_client.post(
+        f"/api/outreach/{seeded_with_drafts['draft_id']}/approve",
+        json={"status": "approved", "approved_by": "admin"},
+    )
+    assert resp.status_code == 200
+    assert resp.json()["approval_status"] == "approved"
+
+
+def test_reject_draft(test_client, seeded_with_drafts):
+    resp = test_client.post(
+        f"/api/outreach/{seeded_with_drafts['draft_id']}/approve",
+        json={"status": "rejected", "approved_by": "admin"},
+    )
+    assert resp.status_code == 200
+    assert resp.json()["approval_status"] == "rejected"
