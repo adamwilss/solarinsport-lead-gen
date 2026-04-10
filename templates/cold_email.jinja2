@@ -1,0 +1,16 @@
+Subject: Solar partnership opportunity — {{ stadium_name }}
+
+Dear {{ contact_name | default("Stadium Partnerships Team", true) }},
+
+I'm reaching out regarding {{ stadium_name }}{% if club_name %}, home of {{ club_name }}{% endif %}. As a {{ capacity | default("significant", true) }}-capacity venue{% if league %} competing in the {{ league }}{% endif %}, there's a compelling opportunity to explore how solar energy solutions could benefit your operations.
+
+{% if sustainability_angle %}We noticed {{ club_name or "your club" }} has shown commitment to sustainability through {{ sustainability_angle }}, which aligns closely with what we do at Solar & Sport.{% endif %}
+
+{% if commercial_angle %}With your existing commercial partnerships infrastructure, integrating a solar energy partner could complement your current sponsor ecosystem while reducing operational energy costs.{% endif %}
+
+We work with sports venues across the UK to implement solar solutions that reduce energy bills, generate revenue, and strengthen sustainability credentials — all with minimal disruption to operations.
+
+Would you be open to a brief conversation about how this could work for {{ stadium_name }}?
+
+Best regards,
+{{ sender_name | default("The Solar & Sport Team") }}

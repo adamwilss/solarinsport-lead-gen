@@ -1,0 +1,14 @@
+Subject: Re: Solar partnership opportunity — {{ stadium_name }}
+
+Hi {{ contact_name | default("there", true) }},
+
+I wanted to follow up on my previous message about solar energy opportunities at {{ stadium_name }}.
+
+{% if capacity and capacity > 20000 %}With a venue of {{ capacity | string | replace(".0", "") }} capacity, the potential energy savings and commercial benefits are significant.{% endif %}
+
+Many venues similar to {{ stadium_name }} are seeing meaningful returns from solar installations — both financially and in terms of their sustainability positioning.
+
+I'd welcome 15 minutes to share some relevant examples. Would any time this week or next work?
+
+Best regards,
+{{ sender_name | default("The Solar & Sport Team") }}
