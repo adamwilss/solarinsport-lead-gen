@@ -1,73 +1,85 @@
-# React + TypeScript + Vite
+# Solar & Sport - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React + TypeScript + Vite + Tailwind CSS frontend for the Solar & Sport Stadium Outreach Engine.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Dashboard** - Pipeline visualization, priority breakdown, and key metrics
+- **Leads** - Searchable, filterable lead list with detailed lead management
+- **Outreach Queue** - Review and approve/reject outreach drafts
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 19
+- TypeScript
+- Vite 8
+- Tailwind CSS 4
+- TanStack Query (React Query)
+- React Router
 
-## Expanding the ESLint configuration
+## Development
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+cd frontend
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The dev server will proxy `/api` requests to `http://localhost:8000`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Production Deployment
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Vercel Deployment
+
+1. **Install Vercel CLI**:
+   ```bash
+   npm i -g vercel
+   ```
+
+2. **Update API URL**:
+   Edit `.env.production` and set `VITE_API_URL` to your deployed backend URL.
+
+3. **Deploy**:
+   ```bash
+   cd frontend
+   vercel --prod
+   ```
+
+### Environment Variables
+
+| Variable | Description |
+|----------|-------------|
+| `VITE_API_URL` | Backend API base URL (e.g., `https://api.example.com`) |
+
+### Backend Integration
+
+The frontend expects a FastAPI backend running on the same domain or at `VITE_API_URL` with these endpoints:
+
+- `GET /api/dashboard/` - Dashboard stats
+- `GET /api/leads/` - List leads with filters
+- `GET /api/leads/{id}` - Get lead details
+- `PATCH /api/leads/{id}` - Update lead
+- `GET /api/outreach/` - List outreach drafts
+- `POST /api/outreach/{id}/approve` - Approve/reject draft
+
+## Project Structure
+
+```
+frontend/
+├── src/
+│   ├── api/
+│   │   ├── client.ts    # API client with React Query
+│   │   └── types.ts     # TypeScript interfaces
+│   ├── pages/
+│   │   ├── DashboardPage.tsx
+│   │   ├── LeadListPage.tsx
+│   │   ├── LeadDetailPage.tsx
+│   │   └── OutreachQueuePage.tsx
+│   ├── App.tsx
+│   ├── main.tsx
+│   └── index.css
+├── public/
+├── index.html
+├── package.json
+└── vite.config.ts
 ```

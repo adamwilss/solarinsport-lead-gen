@@ -1,13 +1,18 @@
 import type { Lead, OutreachDraft, DashboardData } from "./types";
 
-const BASE = "/api";
+// Use environment variable for API base URL, fallback to relative for development
+const API_BASE = import.meta.env.VITE_API_URL || "";
+const BASE = `${API_BASE}/api`;
 
 async function fetchJSON<T>(url: string, init?: RequestInit): Promise<T> {
   const resp = await fetch(`${BASE}${url}`, {
     headers: { "Content-Type": "application/json" },
     ...init,
   });
-  if (!resp.ok) throw new Error(`API error: ${resp.status}`);
+  if (!resp.ok) {
+    const error = await resp.text().catch(() => "Unknown error");
+    throw new Error(`API error: ${resp.status} - ${error}`);
+  }
   return resp.json();
 }
 
